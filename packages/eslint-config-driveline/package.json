@@ -1,0 +1,35 @@
+{
+  "name": "eslint-config-driveline",
+  "version": "1.0.0",
+  "description": "ESLint config used by Driveline",
+  "author": "Markus Wetzel <markuswetzel@gmx.net>",
+  "license": "MIT",
+  "repository": "https://github.com/examunity/driveline.git",
+  "bugs": {
+    "url": "https://github.com/examunity/driveline/issues"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/eslint-parser": "^7.24.4",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "babel-preset-driveline": "^1.0.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.25.2",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": "^18.18.0 || >=20.0.0"
+  }
+}
