@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "main": "app/expo.js",
+  "scripts": {
+    "dev": "driveline dev",
+    "build": "driveline build",
+    "start": "driveline start",
+    "expo": "expo start",
+    "expo-android": "expo start --android",
+    "expo-ios": "expo start --ios",
+    "expo-web": "expo start --web"
+  },
+  "dependencies": {
+    "driveline": "^1.0.0",
+    "expo": "~50.0.17",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-refresh": "0.14.0",
+    "react-native": "0.73.6",
+    "react-native-web": "0.19.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  }
+}
