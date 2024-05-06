@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "driveline dev",
+    "build": "driveline build",
+    "start": "driveline start"
+  },
+  "dependencies": {
+    "driveline": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-refresh": "^0.14.0"
+  }
+}
