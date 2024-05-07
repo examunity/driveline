@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-driveline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ESLint config used by Driveline",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
