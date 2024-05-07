@@ -21,13 +21,13 @@ module.exports = function start(config) {
   config.proxies.forEach((options) => {
     const proxy = httpProxy.createProxyServer(options);
 
-    if (options.ws && server) {
+    if (options.ws) {
       server.on('upgrade', (req, socket, head) => {
         proxy.ws(req, socket, head);
       });
     }
 
-    app.use(proxy.path, (req, res) => {
+    app.use(options.path, (req, res) => {
       proxy.web(req, res, {}, (error) => {
         // add the error handling
         // https://github.com/nodejitsu/node-http-proxy/issues/527
@@ -61,6 +61,7 @@ module.exports = function start(config) {
       process.env.NODE_ENV === 'development' ? 'dev' : 'prod',
       'server',
     );
+
     // Clear webpack cache
     if (process.env.NODE_ENV === 'development') {
       Object.keys(require.cache).forEach((key) => {
