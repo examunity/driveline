@@ -25,8 +25,8 @@ module.exports = function watch(config) {
   // Watch server build
   compilerServer.watch(
     {
-      aggregateTimeout: 300,
-      poll: 300,
+      aggregateTimeout: 1000,
+      ignored: /node_modules/,
     },
     (err) => {
       if (err) {
