@@ -1,7 +1,13 @@
 import loadable from '@loadable/component';
 
 function lazy(ctor) {
-  return loadable(ctor, { suspense: true });
+  const Component = loadable(ctor, { suspense: true });
+
+  Component.payload = {
+    _result: ctor,
+  };
+
+  return Component;
 }
 
 export default lazy;
