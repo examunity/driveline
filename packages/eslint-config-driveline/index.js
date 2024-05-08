@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:flowtype/recommended', 'prettier'],
+  extends: ['airbnb', 'prettier'],
   env: {
     browser: true,
     node: true,
@@ -14,10 +14,12 @@ module.exports = {
     'no-underscore-dangle': ['error', { allow: ['__typename'] }], // allow for graphql
 
     // flowtype
-    'flowtype/space-after-type-colon': 'off', // conflict with prettier
+    'flowtype/define-flow-type': 'error',
+    'flowtype/require-valid-file-annotation': 'error',
+    'flowtype/use-flow-type': 'error',
 
     // import
-    'import/prefer-default-export': 'off', // conflict when there is only 1 action
+    'import/prefer-default-export': 'off',
 
     // jsx-a11y
     'jsx-a11y/anchor-is-valid': 'off',
@@ -27,6 +29,8 @@ module.exports = {
       'error',
       { extensions: ['.js', '.jsx', '.tsx'] },
     ],
+    'react/prop-types': 'off', // deprecated
+    'react/require-default-props': 'off', // deprecated
     'react/jsx-props-no-spreading': 'off', // we can allow spreading, because objects are well defined by Flow
     'react/jsx-one-expression-per-line': 'off', // conflict with prettier
     'react/jsx-indent': 'off', // conflict with prettier
@@ -44,6 +48,7 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts?(x)'],
+      extends: ['plugin:@typescript-eslint/recommended'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         ecmaFeatures: {
