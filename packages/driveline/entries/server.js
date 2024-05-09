@@ -6,6 +6,8 @@ import paths from '../config/paths';
 const ROOT = Symbol('REACT_TRANSPORTER_ROOT');
 const SCRIPTS = Symbol('REACT_TRANSPORTER_SCRIPTS');
 
+const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
+
 function createHtml(loadableExtractor, data) {
   function html(strings, ...values) {
     return ({ onWrite, onRoot }) => {
@@ -27,7 +29,7 @@ function createHtml(loadableExtractor, data) {
           }
           case SCRIPTS: {
             if (data) {
-              const serialized = data.replace(/</g, '\\u003c');
+              const serialized = serialize(data === 'function' ? data() : data);
               buffer += `<script>window.__DRIVELINE_DATA__ = ${serialized};</script>`;
             }
             buffer += loadableExtractor.getScriptTags();

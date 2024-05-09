@@ -75,7 +75,7 @@ The following render options are possible on the `RenderOptions` object:
 | -------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ssr      | boolean                                     | Should server side rendering be used? (default `true`)                                                                                                                                                |
 | stream   | boolean                                     | Should React streaming be used? (default `false`)                                                                                                                                                     |
-| data     | any                                         | Any data that should be passed to the client                                                                                                                                                          |
+| data     | any \| () => any                            | Any data that should be passed to the client. You can pass a function if you want to resolve the data after rendering.                                                                                |
 | document | (html: HTMLTemplateCreator) => HTMLTemplate | The `html` parameter must be used to define the html template. Also `html.root` and `html.scripts` must be used within the template. See [examples](https://github.com/examunity/driveline/examples). |
 
 Minimal example:
