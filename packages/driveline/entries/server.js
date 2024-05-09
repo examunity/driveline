@@ -29,7 +29,9 @@ function createHtml(loadableExtractor, data) {
           }
           case SCRIPTS: {
             if (data) {
-              const serialized = serialize(data === 'function' ? data() : data);
+              const serialized = serialize(
+                typeof data === 'function' ? data() : data,
+              );
               buffer += `<script>window.__DRIVELINE_DATA__ = ${serialized};</script>`;
             }
             buffer += loadableExtractor.getScriptTags();
