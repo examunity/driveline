@@ -1,6 +1,6 @@
 {
   "name": "driveline",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Create server side rendered React apps",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
