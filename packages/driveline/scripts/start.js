@@ -6,6 +6,32 @@ const cookieParser = require('cookie-parser');
 const httpProxy = require('http-proxy');
 const paths = require('../config/paths');
 
+const cache = {
+  values: {},
+  set(key, value, ttl = 0) {
+    cache.values[key] = {
+      value,
+      timestamp: ttl ? Date.now() + ttl * 1000 : null,
+    };
+  },
+  get(key) {
+    const value = cache.values[key];
+    if (!value) {
+      return null;
+    }
+
+    if (value.timestamp && value.timestamp <= Date.now()) {
+      delete cache.values[key];
+      return null;
+    }
+
+    return value.value;
+  },
+  delete(key) {
+    delete cache.values[key];
+  },
+};
+
 module.exports = function start(config) {
   if (!config.host || !config.port) {
     throw new Error(
@@ -76,7 +102,7 @@ module.exports = function start(config) {
     // eslint-disable-next-line global-require, import/no-unresolved, import/no-dynamic-require
     const createReactAppOnServer = require(entry).default;
 
-    createReactAppOnServer(req, res);
+    createReactAppOnServer(req, res, cache);
   });
 
   // start server

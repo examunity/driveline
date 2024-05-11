@@ -53,7 +53,7 @@ function createHtml(loadableExtractor, data) {
   return html;
 }
 
-export default (req, res) => {
+export default (req, res, cache) => {
   // define render, redirect and error function for hydrate function
   const render = (element, config) => {
     if (!config.document) {
@@ -142,5 +142,5 @@ export default (req, res) => {
   // eslint-disable-next-line global-require, import/no-unresolved, import/no-dynamic-require
   const hydrate = require('@@entry').default;
 
-  hydrate({ render, req, res });
+  hydrate({ render, req, res, cache });
 };
