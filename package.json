@@ -4,6 +4,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "packsy": "^0.2.3"
+    "packsy": "^0.2.4"
   }
 }
