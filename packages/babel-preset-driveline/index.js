@@ -1,12 +1,11 @@
 module.exports = (api, opts) => {
-  const { typescript = true, flow = true, root = './app' } = opts;
+  const { typescript = true, root = './app' } = opts;
 
   return {
     presets: [
       require.resolve('@babel/preset-env'),
       require.resolve('@babel/preset-react'),
       typescript && require.resolve('@babel/preset-typescript'),
-      flow && require.resolve('@babel/preset-flow'),
     ].filter(Boolean),
     plugins: [
       [
