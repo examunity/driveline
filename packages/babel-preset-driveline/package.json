@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-driveline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Babel preset used by Driveline",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
@@ -12,11 +12,10 @@
     "index.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/preset-env": "^7.24.4",
-    "@babel/preset-flow": "^7.24.1",
-    "@babel/preset-react": "^7.24.1",
-    "@babel/preset-typescript": "^7.24.1",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@loadable/babel-plugin": "^5.16.1",
     "babel-plugin-intlized-components": "^0.2.4",
     "babel-plugin-module-resolver": "^5.0.2"
