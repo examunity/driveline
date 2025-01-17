@@ -13,13 +13,20 @@ module.exports = {
     'arrow-body-style': 'off',
     'no-underscore-dangle': ['error', { allow: ['__typename'] }], // allow for graphql
 
-    // flowtype
-    'flowtype/define-flow-type': 'error',
-    'flowtype/require-valid-file-annotation': 'error',
-    'flowtype/use-flow-type': 'error',
-
     // import
     'import/prefer-default-export': 'off',
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        pattern: {
+          js: 'never',
+          ts: 'never',
+          jsx: 'never',
+          tsx: 'never',
+        },
+      },
+    ],
 
     // jsx-a11y
     'jsx-a11y/anchor-is-valid': 'off',
@@ -38,7 +45,6 @@ module.exports = {
     'react/jsx-closing-tag-location': 'off', // conflict with prettier
   },
   parser: '@babel/eslint-parser',
-  plugins: ['flowtype'],
   parserOptions: {
     requireConfigFile: false,
     babelOptions: {
@@ -63,6 +69,7 @@ module.exports = {
     'import/resolver': {
       node: {
         moduleDirectory: ['node_modules', 'app'],
+        extensions: ['.js', '.jsx', '.d.ts', '.ts', '.tsx'],
       },
     },
   },
