@@ -1,36 +1,12 @@
 const path = require('path');
 const Express = require('express');
 const http = require('http');
+const fs = require('fs');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const httpProxy = require('http-proxy');
 const paths = require('../config/paths');
 
-const cache = {
-  values: {},
-  set(key, value, ttl = 0) {
-    cache.values[key] = {
-      value,
-      timestamp: ttl ? Date.now() + ttl * 1000 : null,
-    };
-  },
-  get(key) {
-    const value = cache.values[key];
-    if (!value) {
-      return null;
-    }
-
-    if (value.timestamp && value.timestamp <= Date.now()) {
-      delete cache.values[key];
-      return null;
-    }
-
-    return value.value;
-  },
-  delete(key) {
-    delete cache.values[key];
-  },
-};
+const hashMap = [];
 
 module.exports = function start(config) {
   if (!config.host || !config.port) {
@@ -43,33 +19,9 @@ module.exports = function start(config) {
   const app = new Express();
   const server = new http.Server(app);
 
-  // proxy middleware
-  config.proxies.forEach((options) => {
-    const proxy = httpProxy.createProxyServer(options);
-
-    if (options.ws) {
-      server.on('upgrade', (req, socket, head) => {
-        proxy.ws(req, socket, head);
-      });
-    }
-
-    app.use(options.path, (req, res) => {
-      proxy.web(req, res, {}, (error) => {
-        // add the error handling
-        // https://github.com/nodejitsu/node-http-proxy/issues/527
-        if (error.code !== 'ECONNRESET') {
-          // eslint-disable-next-line no-console
-          console.error('proxy error', error);
-        }
-        if (!res.headersSent) {
-          res.writeHead(500, { 'content-type': 'application/json' });
-        }
-
-        const json = { error: 'proxy_error', reason: error.message };
-        res.end(JSON.stringify(json));
-      });
-    });
-  });
+  if (config.middleware) {
+    app.use(config.middleware);
+  }
 
   // compression middleware
   app.use(compression());
@@ -82,27 +34,47 @@ module.exports = function start(config) {
 
   // app entry
   app.use((req, res) => {
-    const cacheFolder = path.join(
+    const outputPath = path.join(
       paths.appCache,
       process.env.NODE_ENV === 'development' ? 'dev' : 'prod',
       'server',
     );
 
-    // Clear webpack cache
     if (process.env.NODE_ENV === 'development') {
+      // Clear webpack cache
+      // Note that using delete require.cache results in a memory leak, so this should only be used
+      // in development.
       Object.keys(require.cache).forEach((key) => {
-        if (key.startsWith(cacheFolder)) {
+        if (key.startsWith(outputPath)) {
           delete require.cache[key];
         }
       });
     }
 
-    const entry = path.join(cacheFolder, 'server-bundle.js');
+    const hash =
+      process.env.NODE_ENV !== 'development' && config.resolveProductionHash
+        ? config.resolveProductionHash(req, res)
+        : null;
+
+    const defaultFilename = 'server-bundle.js';
+    const filename = hash ? `server-bundle.${hash}.js` : defaultFilename;
+
+    // Create one bundle per hash, so that hash uses its own code.
+    if (hash && !hashMap.find((h) => h === hash)) {
+      hashMap.push(hash);
+
+      fs.copyFileSync(
+        path.join(outputPath, defaultFilename),
+        path.join(outputPath, filename),
+      );
+    }
+
+    const entry = path.join(outputPath, filename);
 
     // eslint-disable-next-line global-require, import/no-unresolved, import/no-dynamic-require
     const createReactAppOnServer = require(entry).default;
 
-    createReactAppOnServer(req, res, cache);
+    createReactAppOnServer(req, res);
   });
 
   // start server

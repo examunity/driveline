@@ -22,8 +22,10 @@ const getConfig = (opts) => {
   const host = opts.host || config.host || 'localhost';
   const port = Number(opts.port) || Number(config.port) || 3000;
   const proxies = config.proxies || [];
+  const middleware = config.middleware || null;
+  const resolveProductionHash = config.resolveProductionHash || null;
 
-  return { host, port, proxies };
+  return { host, port, proxies, middleware, resolveProductionHash };
 };
 
 // driveline dev
