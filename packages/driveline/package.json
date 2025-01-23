@@ -31,7 +31,7 @@
     "@loadable/webpack-plugin": "^5.15.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "babel-loader": "^9.2.1",
-    "babel-preset-driveline": "^1.0.0",
+    "babel-preset-driveline": "^1.0.5",
     "browserslist": "^4.24.4",
     "clean-webpack-plugin": "^4.0.0",
     "compression": "^1.7.5",
@@ -40,7 +40,7 @@
     "css-loader": "^7.1.2",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.0",
-    "eslint-config-driveline": "^1.0.0",
+    "eslint-config-driveline": "^1.0.4",
     "express": "^4.21.2",
     "node-polyfill-webpack-plugin": "^4.1.0",
     "razzle-start-server-webpack-plugin": "^4.2.18",
@@ -56,7 +56,7 @@
   "devDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-refresh": "^0.14.0"
+    "react-refresh": "^0.16.0"
   },
   "peerDependencies": {
     "react": ">=18",
