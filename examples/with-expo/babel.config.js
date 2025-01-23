@@ -1,6 +1,8 @@
 module.exports = (api) => {
   // Detect expo usage
-  const isExpo = !api.caller((caller) => caller && caller.name === 'babel-loader');
+  const isExpo = !api.caller(
+    (caller) => caller && caller.name === 'babel-loader',
+  );
 
   if (!isExpo) {
     return {
@@ -9,6 +11,6 @@ module.exports = (api) => {
   }
 
   return {
-    presets: ['babel-preset-expo'],
+    presets: ['babel-preset-expo', ['driveline', { expo: true }]],
   };
 };
