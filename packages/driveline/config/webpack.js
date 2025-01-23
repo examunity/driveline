@@ -6,6 +6,8 @@ const paths = require('./paths');
 const includePaths = [
   paths.appMain,
   path.join(paths.appNodeModules, 'driveline/src'),
+  // Support for react-native-svg >=15.5
+  path.join(paths.appNodeModules, '@react-native/assets-registry/registry'),
 ];
 
 // Parts of this config are forked from the great create-react-app package
