@@ -1,4 +1,4 @@
 * text=auto
 
 # Executables need LF line endings on unix systems
-bin/* eol=lf
+**/bin/* eol=lf
