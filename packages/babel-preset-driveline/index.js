@@ -12,6 +12,12 @@ module.exports = (api, opts) => {
       require.resolve('babel-plugin-intlized-components'),
       { ignoreImport: true, autoResolveKey: root },
     ],
+    [
+      require.resolve('babel-plugin-module-resolver'),
+      {
+        root,
+      },
+    ],
   ];
 
   if (expo) {
@@ -29,12 +35,6 @@ module.exports = (api, opts) => {
     ].filter(Boolean),
     plugins: [
       ...commonPlugins,
-      [
-        require.resolve('babel-plugin-module-resolver'),
-        {
-          root,
-        },
-      ],
       require.resolve('babel-plugin-react-native-web'),
     ],
   };
