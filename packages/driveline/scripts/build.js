@@ -6,16 +6,26 @@ const webpackConfigServer = require('../config/webpack-prod-server');
 const paths = require('../config/paths');
 
 module.exports = function build(config) {
-  // Clear cache directory
   const cacheDir = path.join(paths.appCache, 'prod');
-  fs.rmSync(cacheDir, { recursive: true, force: true });
+  const clientCacheDir = path.join(paths.appCache, 'prod', 'client');
+  const serverCacheDir = path.join(paths.appCache, 'prod', 'server');
+
+  // Clear cache directory
+  if (!config.only) {
+    fs.rmSync(cacheDir, { recursive: true, force: true });
+  }
+  if (config.only === 'CLIENT') {
+    fs.rmSync(clientCacheDir, { recursive: true, force: true });
+  }
+  if (config.only === 'SERVER') {
+    fs.rmSync(serverCacheDir, { recursive: true, force: true });
+  }
 
   const webpackConfigs = [];
 
   if (!config.only || config.only === 'CLIENT') {
     webpackConfigs.push(webpackConfigClient());
   }
-
   if (!config.only || config.only === 'SERVER') {
     webpackConfigs.push(webpackConfigServer());
   }
@@ -35,7 +45,7 @@ module.exports = function build(config) {
       const json = stats.toJson().children[0];
 
       fs.writeFile(
-        path.join(cacheDir, 'webpack-stats.json'),
+        path.join(clientCacheDir, 'webpack-stats.json'),
         JSON.stringify(json),
         (fileErr) => {
           // eslint-disable-next-line no-console

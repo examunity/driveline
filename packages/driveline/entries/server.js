@@ -64,6 +64,7 @@ export default (req, res) => {
     const statsFile = path.join(
       paths.appCache,
       entryFolder,
+      'client',
       'loadable-stats.json',
     );
     const loadableExtractor = new ChunkExtractor({ statsFile });

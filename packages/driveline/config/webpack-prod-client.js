@@ -36,11 +36,16 @@ module.exports = () => {
       new LoadablePlugin({
         filename: 'loadable-stats.json',
         outputAsset: false,
-        writeToDisk: { filename: path.join(paths.appCache, 'prod') },
+        writeToDisk: { filename: path.join(paths.appCache, 'prod', 'client') },
       }),
 
       new WebpackManifestPlugin({
-        fileName: path.join(paths.appCache, 'prod', 'webpack-manifest.json'),
+        fileName: path.join(
+          paths.appCache,
+          'prod',
+          'client',
+          'webpack-manifest.json',
+        ),
       }),
     ],
   };
