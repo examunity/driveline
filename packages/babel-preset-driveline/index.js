@@ -15,6 +15,7 @@ module.exports = (api, opts) => {
     [
       require.resolve('babel-plugin-module-resolver'),
       {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         root,
       },
     ],
