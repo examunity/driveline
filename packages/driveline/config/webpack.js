@@ -48,6 +48,14 @@ module.exports = (isDev, isClient) => {
             },
           ],
         },
+        // Disable fullySpecified for ESM packages in node_modules, so that
+        // platform-specific extensions (e.g. .web.js) can be resolved.
+        {
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false,
+          },
+        },
         // Load CSS files.
         {
           test: /\.css$/,
