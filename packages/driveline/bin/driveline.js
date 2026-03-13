@@ -7,7 +7,11 @@ const start = require('../scripts/start');
 const watch = require('../scripts/watch');
 const build = require('../scripts/build');
 
-require('dotenv').config();
+try {
+  process.loadEnvFile();
+} catch {
+  // .env file is optional
+}
 
 const prog = sade('driveline');
 
